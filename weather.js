@@ -1,7 +1,14 @@
 var request = require('request');
-var url = "http://api.openweathermap.org/data/2.5/weather?q=Denver&units=metric&appid=744e17f268d88782dd7dfdadbfabfe5b"
 
-module.exports = function (callback) {
+
+module.exports = function (location, callback) {
+var locationInput = encodeURIComponent(location);
+var url = "http://api.openweathermap.org/data/2.5/weather?q=" + locationInput + "&units=imperial&appid=744e17f268d88782dd7dfdadbfabfe5b";
+
+if (!location) {
+  return callback("No location provided");
+}
+
   request({url: url,
         json: true
 }, function(error, response, body) {
